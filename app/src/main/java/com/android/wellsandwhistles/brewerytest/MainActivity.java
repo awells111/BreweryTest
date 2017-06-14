@@ -8,14 +8,14 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button detailButton;
+    public static final String API_KEY = "f6d7c4f2a8159624e41db89517417bf1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        detailButton = (Button) findViewById(R.id.detail_button);
+        Button detailButton = (Button) findViewById(R.id.detail_button);
         detailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
