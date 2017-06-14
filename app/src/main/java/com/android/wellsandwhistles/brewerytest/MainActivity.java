@@ -24,4 +24,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+//    Requested URL: https://api.brewerydb.com/v2/beers/?name=&key=f6d7c4f2a8159624e41db89517417bf1&format=json
+
 }
