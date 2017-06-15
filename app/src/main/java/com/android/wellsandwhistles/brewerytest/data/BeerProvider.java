@@ -1,6 +1,7 @@
 package com.android.wellsandwhistles.brewerytest.data;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -8,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import static com.android.wellsandwhistles.brewerytest.data.BeerContract.CONTENT_AUTHORITY;
 /**
  * Created by Owner on 6/14/2017.
  */
@@ -15,7 +18,7 @@ import android.support.annotation.Nullable;
 public class BeerProvider extends ContentProvider{
 
     private static final int CODE_BEER = 100;
-    private static final int CODE_BEER_WITH_NAME = 101;
+    private static final int CODE_BEER_WITH_ID = 101;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private BeerDbHelper mDbHelper;
@@ -23,11 +26,10 @@ public class BeerProvider extends ContentProvider{
     public static UriMatcher buildUriMatcher() {
 
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        final String authority = BeerContract.CONTENT_AUTHORITY;
 
-        matcher.addURI(authority, BeerContract.PATH_BEER, CODE_BEER);
+        matcher.addURI(CONTENT_AUTHORITY, BeerContract.PATH_BEER, CODE_BEER);
 
-        matcher.addURI(authority, BeerContract.PATH_BEER + "/*", CODE_BEER_WITH_NAME);
+        matcher.addURI(CONTENT_AUTHORITY, BeerContract.PATH_BEER + "/#", CODE_BEER_WITH_ID);
 
         return matcher;
     }
@@ -58,11 +60,9 @@ public class BeerProvider extends ContentProvider{
                 break;
             }
 
-            case CODE_BEER_WITH_NAME: {
+            case CODE_BEER_WITH_ID: {
 
-                String dbNameString = uri.getLastPathSegment();
-
-                String[] selectionArguments = new String[]{dbNameString};
+                String[] selectionArguments = new String[]{String.valueOf(ContentUris.parseId(uri))};
 
                 cursor = mDbHelper.getReadableDatabase().query(
 
@@ -70,7 +70,7 @@ public class BeerProvider extends ContentProvider{
 
                         projection,
 
-                        BeerContract.BeerEntry.COLUMN_TITLE + " = ? ",
+                        BeerContract.BeerEntry._ID + " = ?",
                         selectionArguments,
                         null,
                         null,

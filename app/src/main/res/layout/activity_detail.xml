@@ -2,11 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_margin="16dp"
               android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/beer_title_detail"
+        tools:text="TitleText"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <ImageView
-        android:id="@+id/beer_photo"
+        android:id="@+id/beer_label_detail"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@android:color/darker_gray"
@@ -14,7 +22,8 @@
         android:scaleType="centerCrop"/>
 
     <TextView
+        android:id="@+id/beer_description_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="DetailsText"/>
+        tools:text="DescriptionText"/>
 </LinearLayout>

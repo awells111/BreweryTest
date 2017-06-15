@@ -15,6 +15,15 @@ public class Labels {
     @SerializedName("large")
     @Expose
     private String large = "";
+//
+//    public Labels(){
+//    }
+//
+//    public Labels(String icon, String medium, String large) {
+//        this.icon = icon;
+//        this.medium = medium;
+//        this.large = large;
+//    }
 
     public String getIcon() {
         return icon;

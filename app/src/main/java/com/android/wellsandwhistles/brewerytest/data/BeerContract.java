@@ -1,5 +1,6 @@
 package com.android.wellsandwhistles.brewerytest.data;
 
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -21,7 +22,7 @@ public class BeerContract {
                 .appendPath(PATH_BEER)
                 .build();
 
-        public static final String TABLE_NAME = "beer";
+        public static final String TABLE_NAME = PATH_BEER;
         public static final String COLUMN_TITLE = "name";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_LABEL_ICON = "label_icon";
@@ -29,9 +30,17 @@ public class BeerContract {
         public static final String COLUMN_LABEL_LARGE = "label_large";
     }
 
-    public static Uri uriWithId(long id) {
+    public static String getColumnString(Cursor cursor, String columnName) {
+        return cursor.getString(cursor.getColumnIndex(columnName));
+    }
+
+    public static long getColumnLong(Cursor cursor, String columnName) {
+        return cursor.getLong(cursor.getColumnIndex(columnName));
+    }
+
+    public static Uri uriWithId(String id) {
         return CONTENT_URI.buildUpon()
-                .appendPath(Long.toString(id))
+                .appendPath(id)
                 .build();
     }
 }

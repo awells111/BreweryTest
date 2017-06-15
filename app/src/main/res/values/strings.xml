@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BreweryTest</string>
     <string name="failed_to_load">Failed to load beers.</string>
+    <string name="no_description_found">No description found.</string>
 </resources>

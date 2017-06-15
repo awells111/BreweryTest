@@ -1,7 +1,9 @@
 package com.android.wellsandwhistles.brewerytest;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -31,13 +33,14 @@ import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEnt
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_LABEL_MEDIUM;
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_TITLE;
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.CONTENT_URI;
+import static com.android.wellsandwhistles.brewerytest.data.BeerContract.uriWithId;
 
 public class MainActivity extends AppCompatActivity implements
-        BeerAdapter.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>{
+        BeerAdapter.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final int ID_BEER_LOADER = 44;
+    private static final int ID_BEER_LOADER = 1;
 
     public static final String[] MAIN_DATABASE_BEER = {
             BeerContract.BeerEntry.COLUMN_TITLE,
@@ -149,6 +152,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onItemClick(View v, int position) {
-        System.out.println("position clicked: " + position);
+        Uri uri = uriWithId(mBeerAdapter.getItemId(position));
+        Intent intent = new Intent(MainActivity.this, BeerDetailActivity.class);
+        intent.setData(uri);
+        startActivity(intent);
     }
 }

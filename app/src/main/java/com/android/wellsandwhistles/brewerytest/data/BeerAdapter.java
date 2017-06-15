@@ -33,9 +33,9 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.BeerHolder> {
         public BeerHolder(View itemView) {
             super(itemView);
 
-            titleView = (TextView) itemView.findViewById(R.id.beer_title);
-            descriptionView = (TextView) itemView.findViewById(R.id.beer_description);
-            labelView = (ImageView) itemView.findViewById(R.id.beer_image);
+            titleView = (TextView) itemView.findViewById(R.id.beer_title_list);
+            descriptionView = (TextView) itemView.findViewById(R.id.beer_description_list);
+            labelView = (ImageView) itemView.findViewById(R.id.beer_label_list);
 
             itemView.setOnClickListener(this);
         }
@@ -78,7 +78,14 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.BeerHolder> {
         String description = mCursor.getString(INDEX_BEER_DESCRIPTION);
 
         holder.titleView.setText(title);
-        holder.descriptionView.setText(description);
+
+        //Our description will leave blank space if we set its text to ""
+        if (!description.equals("")) {
+            holder.descriptionView.setText(description);
+        } else {
+            holder.descriptionView.setVisibility(View.GONE);
+        }
+
         //todo set label
         //icon is 64x64, medium is 256x256, large is 512x512
         System.out.println("label_icon " + position + ": " + mCursor.getString(INDEX_BEER_LABEL_ICON));
