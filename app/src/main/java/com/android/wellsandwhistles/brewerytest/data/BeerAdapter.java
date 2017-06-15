@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.android.wellsandwhistles.brewerytest.R;
 import com.squareup.picasso.Picasso;
 
+import static android.R.attr.description;
 import static com.android.wellsandwhistles.brewerytest.MainActivity.INDEX_BEER_DESCRIPTION;
 import static com.android.wellsandwhistles.brewerytest.MainActivity.INDEX_BEER_LABEL_ICON;
 import static com.android.wellsandwhistles.brewerytest.MainActivity.INDEX_BEER_TITLE;
@@ -74,16 +75,17 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.BeerHolder> {
         mCursor.moveToPosition(position);
 
         String title = mCursor.getString(INDEX_BEER_TITLE);
-        String description = mCursor.getString(INDEX_BEER_DESCRIPTION);
+        String description;
 
         holder.titleView.setText(title);
 
         //Our description will leave blank space if we set its text to ""
-        if (!description.equals("")) {
-            holder.descriptionView.setText(description);
+        if (mCursor.getString(INDEX_BEER_DESCRIPTION).equals("")) {
+            description = holder.descriptionView.getResources().getString(R.string.no_description_found);
         } else {
-            holder.descriptionView.setVisibility(View.GONE);
+            description = mCursor.getString(INDEX_BEER_DESCRIPTION);
         }
+        holder.descriptionView.setText(description);
 
         if (!mCursor.getString(INDEX_BEER_LABEL_ICON).equals("")) {
             Picasso.with(holder.labelView.getContext()).load(mCursor.getString(INDEX_BEER_LABEL_ICON)).into(holder.labelView);
