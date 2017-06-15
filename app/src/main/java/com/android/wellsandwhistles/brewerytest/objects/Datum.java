@@ -238,4 +238,30 @@ public class Datum {
         this.originalGravity = originalGravity;
     }
 
+    @Override
+    public String toString() {
+        return "Datum{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", nameDisplay='" + nameDisplay + '\'' +
+                ", description='" + description + '\'' +
+                ", abv='" + abv + '\'' +
+                ", glasswareId=" + glasswareId +
+                ", srmId=" + srmId +
+                ", styleId=" + styleId +
+                ", isOrganic='" + isOrganic + '\'' +
+                ", status='" + status + '\'' +
+                ", statusDisplay='" + statusDisplay + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", updateDate='" + updateDate + '\'' +
+                ", glass=" + glass +
+                ", srm=" + srm +
+                ", style=" + style +
+                ", ibu='" + ibu + '\'' +
+                ", availableId=" + availableId +
+                ", available=" + available +
+                ", labels=" + labels +
+                ", originalGravity='" + originalGravity + '\'' +
+                '}';
+    }
 }

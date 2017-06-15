@@ -1,6 +1,7 @@
 
 package com.android.wellsandwhistles.brewerytest.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -18,7 +19,7 @@ public class Beers {
     private Integer totalResults;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private ArrayList<Datum> data = null;
     @SerializedName("status")
     @Expose
     private String status;
@@ -47,11 +48,11 @@ public class Beers {
         this.totalResults = totalResults;
     }
 
-    public List<Datum> getData() {
+    public ArrayList<Datum> getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(ArrayList<Datum> data) {
         this.data = data;
     }
 
