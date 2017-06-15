@@ -34,6 +34,7 @@ import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEnt
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_TITLE;
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.CONTENT_URI;
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.uriWithId;
+import static com.android.wellsandwhistles.brewerytest.data.BeerContract.uriWithName;
 
 public class MainActivity extends AppCompatActivity implements
         BeerAdapter.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor> {
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onItemClick(View v, int position) {
-        Uri uri = uriWithId(mBeerAdapter.getItemId(position));
+        Uri uri = uriWithName(mBeerAdapter.getItemName(position));
         Intent intent = new Intent(MainActivity.this, BeerDetailActivity.class);
         intent.setData(uri);
         startActivity(intent);

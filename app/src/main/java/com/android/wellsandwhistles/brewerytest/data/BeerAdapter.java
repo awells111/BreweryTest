@@ -98,6 +98,11 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.BeerHolder> {
         return (mCursor != null) ? mCursor.getCount() : 0;
     }
 
+    public String getItemName(int position) {
+        mCursor.moveToPosition(position);
+        return mCursor.getString(INDEX_BEER_TITLE);
+    }
+
     public void swapCursor(Cursor cursor) {
         if (mCursor != null) {
             mCursor.close();

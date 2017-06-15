@@ -18,7 +18,7 @@ import static com.android.wellsandwhistles.brewerytest.data.BeerContract.CONTENT
 public class BeerProvider extends ContentProvider{
 
     private static final int CODE_BEER = 100;
-    private static final int CODE_BEER_WITH_ID = 101;
+    private static final int CODE_BEER_WITH_NAME = 101;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private BeerDbHelper mDbHelper;
@@ -29,7 +29,7 @@ public class BeerProvider extends ContentProvider{
 
         matcher.addURI(CONTENT_AUTHORITY, BeerContract.PATH_BEER, CODE_BEER);
 
-        matcher.addURI(CONTENT_AUTHORITY, BeerContract.PATH_BEER + "/#", CODE_BEER_WITH_ID);
+        matcher.addURI(CONTENT_AUTHORITY, BeerContract.PATH_BEER + "/*", CODE_BEER_WITH_NAME);
 
         return matcher;
     }
@@ -60,9 +60,9 @@ public class BeerProvider extends ContentProvider{
                 break;
             }
 
-            case CODE_BEER_WITH_ID: {
+            case CODE_BEER_WITH_NAME: {
 
-                String[] selectionArguments = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                String[] selectionArguments = new String[]{uri.getLastPathSegment()};
 
                 cursor = mDbHelper.getReadableDatabase().query(
 
@@ -70,7 +70,7 @@ public class BeerProvider extends ContentProvider{
 
                         projection,
 
-                        BeerContract.BeerEntry._ID + " = ?",
+                        BeerContract.BeerEntry.COLUMN_TITLE + " = ? ",
                         selectionArguments,
                         null,
                         null,

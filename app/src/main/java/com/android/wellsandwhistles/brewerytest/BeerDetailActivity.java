@@ -70,7 +70,6 @@ public class BeerDetailActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle loaderArgs) {
-        System.out.println("onCreateLoader");
         switch (loaderId) {
 
             case ID_DETAIL_BEER_LOADER:
@@ -78,7 +77,7 @@ public class BeerDetailActivity extends AppCompatActivity implements LoaderManag
                 return new CursorLoader(this,
                         beerUri,
                         DETAIL_DATABASE_BEER,
-                        BeerContract.BeerEntry._ID,
+                        BeerContract.BeerEntry.COLUMN_TITLE,
                         null,
                         null);
 
@@ -89,7 +88,6 @@ public class BeerDetailActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        System.out.println("onLoadFinished");
         /*Checks if our cursor has valid data (stops our app from crashing after delete)*/
         boolean cursorHasValidData = false;
         if (data != null && data.moveToFirst()) {

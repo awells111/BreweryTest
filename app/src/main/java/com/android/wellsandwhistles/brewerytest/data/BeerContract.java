@@ -43,4 +43,10 @@ public class BeerContract {
                 .appendPath(id)
                 .build();
     }
+
+    public static Uri uriWithName(String name) {
+        return CONTENT_URI.buildUpon()
+                .appendPath(name)
+                .build();
+    }
 }
