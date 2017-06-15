@@ -35,7 +35,7 @@ public class Datum {
     private String statusDisplay;
     @SerializedName("labels")
     @Expose
-    private Labels labels;
+    private Labels labels = new Labels();
 
     public String getId() {
         return id;
@@ -132,4 +132,5 @@ public class Datum {
                 ", labels=" + labels +
                 '}';
     }
+
 }

@@ -24,7 +24,9 @@ public class BeerContract {
         public static final String TABLE_NAME = "beer";
         public static final String COLUMN_TITLE = "name";
         public static final String COLUMN_DESCRIPTION = "description";
-        public static final String COLUMN_LABEL = "label";
+        public static final String COLUMN_LABEL_ICON = "label_icon";
+        public static final String COLUMN_LABEL_MEDIUM = "label_medium";
+        public static final String COLUMN_LABEL_LARGE = "label_large";
     }
 
     public static Uri uriWithId(long id) {

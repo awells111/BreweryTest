@@ -31,7 +31,9 @@ public class BeerDbHelper extends SQLiteOpenHelper {
                         BeerEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         BeerEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                         BeerEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
-                        BeerEntry.COLUMN_LABEL + " TEXT NOT NULL, " +
+                        BeerEntry.COLUMN_LABEL_ICON + " TEXT NOT NULL, " +
+                        BeerEntry.COLUMN_LABEL_MEDIUM + " TEXT NOT NULL, " +
+                        BeerEntry.COLUMN_LABEL_LARGE + " TEXT NOT NULL, " +
 
                         " UNIQUE (" + BeerEntry.COLUMN_TITLE + ") ON CONFLICT REPLACE);";
 

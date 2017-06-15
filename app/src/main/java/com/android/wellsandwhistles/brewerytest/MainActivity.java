@@ -1,9 +1,7 @@
 package com.android.wellsandwhistles.brewerytest;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -13,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.wellsandwhistles.brewerytest.data.BeerAdapter;
@@ -29,7 +26,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_DESCRIPTION;
-import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_LABEL;
+import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_LABEL_ICON;
+import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_LABEL_LARGE;
+import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_LABEL_MEDIUM;
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_TITLE;
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.CONTENT_URI;
 
@@ -43,12 +42,16 @@ public class MainActivity extends AppCompatActivity implements
     public static final String[] MAIN_DATABASE_BEER = {
             BeerContract.BeerEntry.COLUMN_TITLE,
             BeerContract.BeerEntry.COLUMN_DESCRIPTION,
-            BeerContract.BeerEntry.COLUMN_LABEL
+            BeerContract.BeerEntry.COLUMN_LABEL_ICON,
+            BeerContract.BeerEntry.COLUMN_LABEL_MEDIUM,
+            BeerContract.BeerEntry.COLUMN_LABEL_LARGE
     };
 
     public static final int INDEX_BEER_TITLE = 0;
     public static final int INDEX_BEER_DESCRIPTION = 1;
-    public static final int INDEX_BEER_LABEL = 2;
+    public static final int INDEX_BEER_LABEL_ICON = 2;
+    public static final int INDEX_BEER_LABEL_MEDIUM = 3;
+    public static final int INDEX_BEER_LABEL_LARGE = 4;
 
     private RecyclerView mRecyclerView;
     private BeerAdapter mBeerAdapter;
@@ -134,9 +137,9 @@ public class MainActivity extends AppCompatActivity implements
             ContentValues values = new ContentValues();
             values.put(COLUMN_TITLE, list.get(i).getName());
             values.put(COLUMN_DESCRIPTION, list.get(i).getDescription());
-
-            //todo I should be inputting the web address of each label into the DB instead of the "labels" object
-            values.put(COLUMN_LABEL, "72");
+            values.put(COLUMN_LABEL_ICON, list.get(i).getLabels().getIcon());
+            values.put(COLUMN_LABEL_MEDIUM, list.get(i).getLabels().getMedium());
+            values.put(COLUMN_LABEL_LARGE, list.get(i).getLabels().getLarge());
 
             beerContentValues[i] = values;
         }
