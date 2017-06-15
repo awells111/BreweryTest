@@ -11,13 +11,13 @@ public class Datum {
     private String id;
     @SerializedName("name")
     @Expose
-    private String name;
+    private String name = "";
     @SerializedName("nameDisplay")
     @Expose
     private String nameDisplay;
     @SerializedName("description")
     @Expose
-    private String description;
+    private String description = "";
     @SerializedName("abv")
     @Expose
     private String abv;

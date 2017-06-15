@@ -26,7 +26,7 @@
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:parentActivityName=".MainActivity"/>
-        
+
         <provider
             android:name=".data.BeerProvider"
             android:authorities="com.android.wellsandwhistles.brewerytest.data.BeerProvider"

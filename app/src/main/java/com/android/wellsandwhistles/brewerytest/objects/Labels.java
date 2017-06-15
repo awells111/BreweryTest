@@ -8,13 +8,13 @@ public class Labels {
 
     @SerializedName("icon")
     @Expose
-    private String icon;
+    private String icon = "";
     @SerializedName("medium")
     @Expose
-    private String medium;
+    private String medium = "";
     @SerializedName("large")
     @Expose
-    private String large;
+    private String large = "";
 
     public String getIcon() {
         return icon;

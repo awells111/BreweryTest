@@ -1,14 +1,23 @@
 package com.android.wellsandwhistles.brewerytest;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.android.wellsandwhistles.brewerytest.data.BeerProvider;
+import com.android.wellsandwhistles.brewerytest.data.BeerAdapter;
+import com.android.wellsandwhistles.brewerytest.data.BeerContract;
 import com.android.wellsandwhistles.brewerytest.networking.RetroClient;
 import com.android.wellsandwhistles.brewerytest.objects.Beers;
 import com.android.wellsandwhistles.brewerytest.objects.Datum;
@@ -19,9 +28,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_DESCRIPTION;
+import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_LABEL;
+import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_TITLE;
+import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.CONTENT_URI;
+
+public class MainActivity extends AppCompatActivity implements
+        BeerAdapter.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    private static final int ID_BEER_LOADER = 44;
+
+    public static final String[] MAIN_DATABASE_BEER = {
+            BeerContract.BeerEntry.COLUMN_TITLE,
+            BeerContract.BeerEntry.COLUMN_DESCRIPTION,
+            BeerContract.BeerEntry.COLUMN_LABEL
+    };
+
+    public static final int INDEX_BEER_TITLE = 0;
+    public static final int INDEX_BEER_DESCRIPTION = 1;
+    public static final int INDEX_BEER_LABEL = 2;
+
+    private RecyclerView mRecyclerView;
+    private BeerAdapter mBeerAdapter;
+
     Call<Beers> mBeersCall;
     private ArrayList<Datum> datumListFromJSON;
 
@@ -30,28 +61,62 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mBeersCall = RetroClient.getBeerApiService().sortNameJSON();
-        makeBeerCall();
+        mBeerAdapter = new BeerAdapter(null);
+        mBeerAdapter.setOnItemClickListener(this);
 
-        //todo delete test button when finished
-        Button detailButton = (Button) findViewById(R.id.detail_button);
-        detailButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BeerDetailActivity.class);
-                startActivity(intent);
-            }
-        });
-        //todo don't forget test button
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setAdapter(mBeerAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mBeersCall = RetroClient.getBeerApiService().sortNameJSON();
+
+        getSupportLoaderManager().initLoader(ID_BEER_LOADER, null, this);
+
+        getContentResolver().delete(CONTENT_URI, null, null);
+        makeBeerCall();
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int loaderId, Bundle bundle) {
+
+        switch (loaderId) {
+
+            case ID_BEER_LOADER:
+
+                String sortOrder = BeerContract.BeerEntry._ID + " ASC";
+
+                Log.i(TAG, "LOADER CREATED");
+                return new CursorLoader(this,
+                        CONTENT_URI,
+                        MAIN_DATABASE_BEER,
+                        "NAME IS NOT NULL",
+                        null,
+                        sortOrder);
+
+            default:
+                throw new RuntimeException("Loader Not Implemented: " + loaderId);
+        }
 
     }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mBeerAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mBeerAdapter.swapCursor(null);
+    }
+
 
     private void makeBeerCall() {
         mBeersCall.enqueue(new Callback<Beers>() {
             @Override
             public void onResponse(Call<Beers> call, Response<Beers> response) {
                 datumListFromJSON = response.body().getData();
-                logDatum(datumListFromJSON);
+
+                getContentResolver().bulkInsert(CONTENT_URI, createBeerContentValues(datumListFromJSON));
             }
 
             @Override
@@ -62,31 +127,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void logDatum(ArrayList<Datum> list) {
-        String listString = "";
+    private ContentValues[] createBeerContentValues(ArrayList<Datum> list) {
+        ContentValues[] beerContentValues = new ContentValues[list.size()];
 
+        for (int i = 0; i < list.size(); i++) {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_TITLE, list.get(i).getName());
+            values.put(COLUMN_DESCRIPTION, list.get(i).getDescription());
 
-        /*Create a string from our json data*/
-        for (Datum s : list) {
-            listString += s.toString() + "\t";
+            //todo I should be inputting the web address of each label into the DB instead of the "labels" object
+            values.put(COLUMN_LABEL, "72");
+
+            beerContentValues[i] = values;
         }
 
-        /*If our listString is longer than 4000 characters we will log it in chunks because the Android Monitor
-        * has a limited number of characters that it will log.*/
-        int chunkSize = 4000;
-        if (listString.length() > chunkSize) {
-            Log.v(TAG, "listString.length = " + listString.length());
-            int chunkCount = listString.length() / chunkSize;
-            for (int i = 0; i < chunkCount + 1; i++) {
-                int max = chunkSize * (i + 1);
-                if (max >= listString.length()) {
-                    Log.v(TAG, "chunk " + (i + 1) + " of " + (chunkCount + 1) + ":" + listString.substring(4000 * i));
-                } else {
-                    Log.v(TAG, "chunk " + (i + 1) + " of " + (chunkCount + 1) + ":" + listString.substring(4000 * i, max));
-                }
-            }
-        } else {
-            Log.v(TAG, listString);
-        }
+        return beerContentValues;
+    }
+
+    @Override
+    public void onItemClick(View v, int position) {
+        System.out.println("position clicked: " + position);
     }
 }
