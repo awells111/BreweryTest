@@ -21,12 +21,6 @@ public class Datum {
     @SerializedName("abv")
     @Expose
     private String abv;
-    @SerializedName("glasswareId")
-    @Expose
-    private Integer glasswareId;
-    @SerializedName("srmId")
-    @Expose
-    private Integer srmId;
     @SerializedName("styleId")
     @Expose
     private Integer styleId;
@@ -39,36 +33,9 @@ public class Datum {
     @SerializedName("statusDisplay")
     @Expose
     private String statusDisplay;
-    @SerializedName("createDate")
-    @Expose
-    private String createDate;
-    @SerializedName("updateDate")
-    @Expose
-    private String updateDate;
-    @SerializedName("glass")
-    @Expose
-    private Glass glass;
-    @SerializedName("srm")
-    @Expose
-    private Srm srm;
-    @SerializedName("style")
-    @Expose
-    private Style style;
-    @SerializedName("ibu")
-    @Expose
-    private String ibu;
-    @SerializedName("availableId")
-    @Expose
-    private Integer availableId;
-    @SerializedName("available")
-    @Expose
-    private Available available;
     @SerializedName("labels")
     @Expose
     private Labels labels;
-    @SerializedName("originalGravity")
-    @Expose
-    private String originalGravity;
 
     public String getId() {
         return id;
@@ -110,22 +77,6 @@ public class Datum {
         this.abv = abv;
     }
 
-    public Integer getGlasswareId() {
-        return glasswareId;
-    }
-
-    public void setGlasswareId(Integer glasswareId) {
-        this.glasswareId = glasswareId;
-    }
-
-    public Integer getSrmId() {
-        return srmId;
-    }
-
-    public void setSrmId(Integer srmId) {
-        this.srmId = srmId;
-    }
-
     public Integer getStyleId() {
         return styleId;
     }
@@ -158,84 +109,12 @@ public class Datum {
         this.statusDisplay = statusDisplay;
     }
 
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public Glass getGlass() {
-        return glass;
-    }
-
-    public void setGlass(Glass glass) {
-        this.glass = glass;
-    }
-
-    public Srm getSrm() {
-        return srm;
-    }
-
-    public void setSrm(Srm srm) {
-        this.srm = srm;
-    }
-
-    public Style getStyle() {
-        return style;
-    }
-
-    public void setStyle(Style style) {
-        this.style = style;
-    }
-
-    public String getIbu() {
-        return ibu;
-    }
-
-    public void setIbu(String ibu) {
-        this.ibu = ibu;
-    }
-
-    public Integer getAvailableId() {
-        return availableId;
-    }
-
-    public void setAvailableId(Integer availableId) {
-        this.availableId = availableId;
-    }
-
-    public Available getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Available available) {
-        this.available = available;
-    }
-
     public Labels getLabels() {
         return labels;
     }
 
     public void setLabels(Labels labels) {
         this.labels = labels;
-    }
-
-    public String getOriginalGravity() {
-        return originalGravity;
-    }
-
-    public void setOriginalGravity(String originalGravity) {
-        this.originalGravity = originalGravity;
     }
 
     @Override
@@ -246,22 +125,11 @@ public class Datum {
                 ", nameDisplay='" + nameDisplay + '\'' +
                 ", description='" + description + '\'' +
                 ", abv='" + abv + '\'' +
-                ", glasswareId=" + glasswareId +
-                ", srmId=" + srmId +
                 ", styleId=" + styleId +
                 ", isOrganic='" + isOrganic + '\'' +
                 ", status='" + status + '\'' +
                 ", statusDisplay='" + statusDisplay + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", updateDate='" + updateDate + '\'' +
-                ", glass=" + glass +
-                ", srm=" + srm +
-                ", style=" + style +
-                ", ibu='" + ibu + '\'' +
-                ", availableId=" + availableId +
-                ", available=" + available +
                 ", labels=" + labels +
-                ", originalGravity='" + originalGravity + '\'' +
                 '}';
     }
 }

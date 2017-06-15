@@ -40,28 +40,12 @@ public class Beers {
         this.numberOfPages = numberOfPages;
     }
 
-    public Integer getTotalResults() {
-        return totalResults;
-    }
-
-    public void setTotalResults(Integer totalResults) {
-        this.totalResults = totalResults;
-    }
-
     public ArrayList<Datum> getData() {
         return data;
     }
 
     public void setData(ArrayList<Datum> data) {
         this.data = data;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
 }
