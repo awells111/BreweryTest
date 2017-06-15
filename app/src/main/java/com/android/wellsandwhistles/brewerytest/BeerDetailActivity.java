@@ -7,12 +7,14 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.wellsandwhistles.brewerytest.data.BeerContract;
+import com.squareup.picasso.Picasso;
 /**
  * Created by Owner on 6/14/2017.
  */
@@ -111,13 +113,18 @@ public class BeerDetailActivity extends AppCompatActivity implements LoaderManag
             description = getResources().getString(R.string.no_description_found);
         } else {
             description = data.getString(INDEX_DETAIL_BEER_DESCRIPTION);
+            descriptionView.setMovementMethod(new ScrollingMovementMethod());
         }
-
-        label = data.getString(INDEX_DETAIL_BEER_LABEL_LARGE);
 
         titleView.setText(title);
         descriptionView.setText(description);
+        label = data.getString(INDEX_DETAIL_BEER_LABEL_LARGE);
 
+        if (!label.equals("")) {
+            Picasso.with(getApplicationContext()).load(label).into(labelView);
+        } else {
+            labelView.setImageResource(R.drawable.ic_beer_placeholder_large);
+        }
     }
 
     @Override

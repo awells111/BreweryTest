@@ -33,7 +33,6 @@ import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEnt
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_LABEL_MEDIUM;
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.COLUMN_TITLE;
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.BeerEntry.CONTENT_URI;
-import static com.android.wellsandwhistles.brewerytest.data.BeerContract.uriWithId;
 import static com.android.wellsandwhistles.brewerytest.data.BeerContract.uriWithName;
 
 public class MainActivity extends AppCompatActivity implements

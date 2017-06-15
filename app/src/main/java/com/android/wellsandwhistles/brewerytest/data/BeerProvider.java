@@ -1,7 +1,6 @@
 package com.android.wellsandwhistles.brewerytest.data;
 
 import android.content.ContentProvider;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -15,7 +14,7 @@ import static com.android.wellsandwhistles.brewerytest.data.BeerContract.CONTENT
  * Created by Owner on 6/14/2017.
  */
 
-public class BeerProvider extends ContentProvider{
+public class BeerProvider extends ContentProvider {
 
     private static final int CODE_BEER = 100;
     private static final int CODE_BEER_WITH_NAME = 101;

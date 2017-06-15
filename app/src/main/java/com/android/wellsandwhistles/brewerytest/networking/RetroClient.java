@@ -12,7 +12,6 @@ public class RetroClient {
     private static final String API_ROOT_URL = "https://api.brewerydb.com/";
     static final String API_KEY = "f6d7c4f2a8159624e41db89517417bf1";
 
-
     private static Retrofit getRetrofitBeerInstance() {
         return new Retrofit.Builder()
                 .baseUrl(API_ROOT_URL)

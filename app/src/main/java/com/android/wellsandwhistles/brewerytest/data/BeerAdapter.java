@@ -9,11 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.wellsandwhistles.brewerytest.R;
+import com.squareup.picasso.Picasso;
 
 import static com.android.wellsandwhistles.brewerytest.MainActivity.INDEX_BEER_DESCRIPTION;
 import static com.android.wellsandwhistles.brewerytest.MainActivity.INDEX_BEER_LABEL_ICON;
-import static com.android.wellsandwhistles.brewerytest.MainActivity.INDEX_BEER_LABEL_LARGE;
-import static com.android.wellsandwhistles.brewerytest.MainActivity.INDEX_BEER_LABEL_MEDIUM;
 import static com.android.wellsandwhistles.brewerytest.MainActivity.INDEX_BEER_TITLE;
 /**
  * Created by Owner on 6/14/2017.
@@ -22,7 +21,7 @@ import static com.android.wellsandwhistles.brewerytest.MainActivity.INDEX_BEER_T
 public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.BeerHolder> {
 
     public interface OnItemClickListener {
-        void onItemClick(View v,int position);
+        void onItemClick(View v, int position);
     }
 
     public class BeerHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -86,11 +85,11 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.BeerHolder> {
             holder.descriptionView.setVisibility(View.GONE);
         }
 
-        //todo set label
-        //icon is 64x64, medium is 256x256, large is 512x512
-        System.out.println("label_icon " + position + ": " + mCursor.getString(INDEX_BEER_LABEL_ICON));
-        System.out.println("label_medium " + position + ": " + mCursor.getString(INDEX_BEER_LABEL_MEDIUM));
-        System.out.println("label_large " + position + ": " + mCursor.getString(INDEX_BEER_LABEL_LARGE));
+        if (!mCursor.getString(INDEX_BEER_LABEL_ICON).equals("")) {
+            Picasso.with(holder.labelView.getContext()).load(mCursor.getString(INDEX_BEER_LABEL_ICON)).into(holder.labelView);
+        } else {
+            holder.labelView.setImageResource(R.drawable.ic_beer_placeholder_icon);
+        }
     }
 
     @Override

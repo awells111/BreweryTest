@@ -10,7 +10,9 @@
         android:id="@+id/beer_label_list"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        app:srcCompat="@drawable/ic_beer_placeholder"/>
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:srcCompat="@drawable/ic_beer_placeholder_icon"/>
 
     <LinearLayout
         android:layout_width="match_parent"
